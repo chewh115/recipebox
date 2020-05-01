@@ -34,9 +34,11 @@ Description (TextField)
 Time Required (Charfield) (for example, "One hour")
 Instructions (TextField)
 
--- Run off environment 
-run the command line 
--- python manage.py runserver
+<p>
+<br>-- Run off environment </br>
+<br>run the command line</br>
+<br>-- python manage.py runserver</br>
 
-localhost:800
-localhost:8000/admin
+<br>localhost:800</br>
+<br>localhost:8000/admin</br>
+</p>
