@@ -3,19 +3,7 @@ from django.utils import timezone
 
 
 # Create your models here.
-""" 
-Author model:
-Name (CharField)
-Bio (TextField)
-Recipe Model:
 
-Title (CharField)
-Author (ForeignKey)
-Description (TextField)
-Time Required (Charfield) (for example, "One hour")
-Instructions (TextField)
-
-"""
 
 class Author(models.Model):
     name = models.CharField(max_length=50)
@@ -23,6 +11,7 @@ class Author(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class RecipeItem(models.Model):
     title = models.CharField(max_length=50)

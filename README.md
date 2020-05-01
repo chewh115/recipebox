@@ -39,6 +39,6 @@ Instructions (TextField)
 <br>run the command line</br>
 <br>-- python manage.py runserver</br>
 
-<br>localhost:800</br>
+<br>localhost:8000</br>
 <br>localhost:8000/admin</br>
 </p>
