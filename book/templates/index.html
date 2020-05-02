@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+<title>Cookbook</title>
+</head>
+<body>
+    <h1>Recipes</h1>
+
+            {% for recipe in recipe_data %}
+                
+    <ul>
+        <li><a href="/recipes/{{ recipe.id }}/">{{recipe.title}}</a></li>
+            {% endfor %}
+    </ul>
+</body>
+</html>
