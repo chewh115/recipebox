@@ -21,9 +21,7 @@ from book import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('author/<int: id', views.author_data, name=''),
-    # path('author/<int: id', views.recipes_data, name=''),
-    # path('home/', views.index, name='')
+
 
 ]
 urlpatterns += book_urls
