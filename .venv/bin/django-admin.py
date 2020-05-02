@@ -1,4 +1,4 @@
-#!/Users/daciapaden/Desktop/cookbook/.venv/bin/python
+#!/Users/daciapaden/Desktop/recipebox/.venv/bin/python
 from django.core import management
 
 if __name__ == "__main__":

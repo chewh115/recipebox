@@ -1,4 +1,4 @@
-#!/Users/daciapaden/Desktop/cookbook/.venv/bin/python
+#!/Users/daciapaden/Desktop/recipebox/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

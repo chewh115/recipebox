@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Author</title>
-<h1>{{ author.name }}</h1>
+<h3>Author: // {{ author_data.name }} //</h3>
 
-<h1>About:</h1>
-<p>{{author.bio}}</p>
+<h3>About:</h3>
+<p>{{author_data.bio}}</p>
 
-<ul>
-    {% for recipe in recipe_data %}
-        {% if recipe.author == author %}
-        <li><a href="/recipes/{{recipe.id}}/">{{recipe.title}}</a></li>
-        {% endif %}
-    {% endfor %}
-</ul>
 </head>
 <body>
+    <h5>Recipes by the author, </h5>
+        <ul>
+            {% for recipe_data in data %}
+                {% if recipe.author_data == author_data %}
+                <li><a href="/recipes/{{recipe.id}}/">{{recipe.title}}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
     
 </body>
 </html>
