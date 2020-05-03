@@ -4,24 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Author</title>
-<h3>Author: // {{ author_data.name }} //</h3>
 
-<h3>About:</h3>
-<p>{{author_data.bio}}</p>
-
-<ul>
-<h5>Recipes by the author, </h5>
-            {% for recipe in data %}
-            {% if recipe.author.id == author_data.id %}
-    <li><a href="/recipes/{{ recipe.id }}/">{{recipe.title}}</a></li>
-            {% endif %}
-            {% endfor %}
-</ul>
+    <h3>Author: // {{ author_data.name }} //</h3>
 </head>
 <body>
+    
+    <h3>About:</h3>
+    <p>{{author_data.bio}}</p>
+    
+    <main>
+    <h5>Recipes by the author, </h5>
+                {% for recipe in data %}
+                {% if recipe.author.id == author_data.id %}
+        <li><a href="/recipes/{{ recipe.id }}/">{{recipe.title}}</a></li>
+                {% endif %}
+                {% endfor %}
+    </main>
+    <br>
+    <br>
     <ul>
         <a href='/'>Back to home</a>
     </ul>
     
 </body>
+<footer>Copyright Sasha 2020 (c)</footer>
 </html>
