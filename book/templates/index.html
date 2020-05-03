@@ -10,9 +10,9 @@
 
             {% for recipe in recipe_data %}
                 
-    <ul>
-        <li><a href="/recipes/{{ recipe.id }}/">{{recipe.title}}</a></li>
+    <li>
+        <a href="/recipes/{{ recipe.id }}/">{{recipe.title}}</a>
             {% endfor %}
-    </ul>
+    </li>
 </body>
 </html>

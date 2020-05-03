@@ -11,13 +11,17 @@
 
 <ul>
 <h5>Recipes by the author, </h5>
-            {% for recipe in recipe_data %}
-            
+            {% for recipe in data %}
+            {% if recipe.author.id == author_data.id %}
     <li><a href="/recipes/{{ recipe.id }}/">{{recipe.title}}</a></li>
+            {% endif %}
             {% endfor %}
 </ul>
 </head>
 <body>
+    <ul>
+        <a href='/'>Back to home</a>
+    </ul>
     
 </body>
 </html>
