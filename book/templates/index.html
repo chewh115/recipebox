@@ -8,11 +8,12 @@
 <body>
     <h1>Recipes</h1>
 
-            {% for recipe in recipe_data %}
-                
-    <li>
+    {% for recipe in recipe_data %}
+        <ul>               
+            <li>
         <a href="/recipes/{{ recipe.id }}/">{{recipe.title}}</a>
-            {% endfor %}
     </li>
+</ul>
+{% endfor %}
 </body>
 </html>

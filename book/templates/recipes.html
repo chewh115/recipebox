@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-<ul>
+</head>
+
+<body>
 <h1>{{ recipe.title }}</h1>
 <h3>Posted on {{ recipe.date }}</h3>
 <h3>Author:</h3>
+<ul>    
     <li>
     <a href = '/author/{{recipe.author.id}}/'><h3>{{ recipe.author.name }}</h3>
         </a>
@@ -22,8 +24,9 @@
 
 <h4>Instructions</h4>
     <p>{{ recipe.instructions }}</p>
-</head>
-<body>
-    <a href='/'>Back home</a>
+
+
+        <a href='/'><button>Back to Home</button></a>
+
 </body>
 </html>
