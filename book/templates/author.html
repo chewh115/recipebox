@@ -13,12 +13,14 @@
     <p>{{author_data.bio}}</p>
     
     <main>
+        <div class="container">
     <h5>Recipes by the author, </h5>
                 {% for recipe in data %}
                 {% if recipe.author.id == author_data.id %}
         <li><a href="/recipes/{{ recipe.id }}/">{{recipe.title}}</a></li>
                 {% endif %}
                 {% endfor %}
+        </div>
     </main>
     <br>
     <br>

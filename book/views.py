@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from book.models import RecipeItem, Author
-
+from book.forms import BookAddForm
 
 # Create your views here.
 def index(request):
@@ -21,3 +21,9 @@ def author(request, id):
 def recipes(request, id):
     recipe = RecipeItem.objects.filter(id=id).first()
     return render(request, "recipes.html", {"recipe": recipe})
+
+
+def bookadd(request):
+    html = "bookaddform.html"
+    form = BookAddForm()
+    return render(request, html, {"form": form})
