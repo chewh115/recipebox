@@ -11,8 +11,8 @@ def index(request):
         'recipe_data': recipe_data, "author_data": author_data})
 
 
-def recipeadd(request):
-    html = "recipeadd.html"
+def recipe_add(request):
+    html = "recipe_add.html"
 
     if request.method == 'POST':
         form = RecipeAddForm(request.POST)
