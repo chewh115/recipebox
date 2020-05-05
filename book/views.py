@@ -12,7 +12,7 @@ def index(request):
 
 
 def recipeadd(request):
-    html = "recipe_add.html"
+    html = "recipeadd.html"
 
     if request.method == 'POST':
         form = RecipeAddForm(request.POST)
