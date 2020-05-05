@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse, HttpResponseRedirect
 from book.models import RecipeItem, Author
-from book.forms import BookAddForm
+from book.forms import RecipeAddForm
 
 # Create your views here.
 def index(request):
@@ -9,6 +9,23 @@ def index(request):
     return render(request, 'index.html', {
         'recipe_data': recipe_data, "author_data": author_data})
 
+def recipeadd(request):
+    html = "recipe_add.html"
+
+    if request.method == 'POST':
+        form = RecipeAddForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            RecipeItem.objects.create(
+                title=data['title'],
+                description=data['body'],
+                author=data['author']
+            )
+            return HttpResponseRedirect('/')
+
+    form = RecipeAddForm()
+
+    return render(request, html, {"form": form})
 
 def author(request, id):
     author_data = Author.objects.filter(id=id).first()
@@ -22,8 +39,3 @@ def recipes(request, id):
     recipe = RecipeItem.objects.filter(id=id).first()
     return render(request, "recipes.html", {"recipe": recipe})
 
-
-def bookadd(request):
-    html = "bookaddform.html"
-    form = BookAddForm()
-    return render(request, html, {"form": form})
