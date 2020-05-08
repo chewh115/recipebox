@@ -3,6 +3,7 @@ from book.models import RecipeItem, Author
 from book.forms import RecipeAddForm, AuthorAddForm, LoginForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 # don't use login name conventions over writing an import
 
 
@@ -66,6 +67,8 @@ def author_add(request):
         return HttpResponseRedirect(reverse('homepage'))
 
     return render(request, html, {"form": form})
+else:
+    return HttpResponse(status=201)
 
 
 def author(request, id):
