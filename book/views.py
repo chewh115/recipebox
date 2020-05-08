@@ -2,7 +2,7 @@ from django.shortcuts import render, reverse, HttpResponseRedirect
 from book.models import RecipeItem, Author
 from book.forms import RecipeAddForm, AuthorAddForm, LoginForm
 from django.contrib.auth import login, logout, authenticate
-
+from django.contrib.auth.decorators import login_required
 # don't use login name conventions over writing an import
 
 
@@ -19,6 +19,7 @@ def loginview(request):
     form = LoginForm()
     return render(request, 'login.html', {'form': form} )
 
+
 # Create your views here.
 def index(request):
     recipe_data = RecipeItem.objects.all()
@@ -27,6 +28,7 @@ def index(request):
         'recipe_data': recipe_data, "author_data": author_data})
 
 
+@login_required
 def recipe_add(request):
     html = "recipe_add.html"
 
@@ -46,6 +48,7 @@ def recipe_add(request):
     return render(request, html, {"form": form})
 
 
+@login_required
 def author_add(request):
     html = "author_add.html"
     form = AuthorAddForm()
