@@ -15,9 +15,11 @@ def loginview(request):
                 request, username=data['username'], password=data['password'])
         if user:
             login(request, user)
-            return HttpResponseRedirect(reverse('homepage'))
+            return HttpResponseRedirect(
+                request.GET.get('next', reverse('homepage'))
+            )
     form = LoginForm()
-    return render(request, 'login.html', {'form': form} )
+    return render(request, 'login.html', {'form': form})
 
 
 # Create your views here.
