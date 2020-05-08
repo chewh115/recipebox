@@ -1,6 +1,18 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from book.models import RecipeItem, Author
 from book.forms import RecipeAddForm, AuthorAddForm
+from django.contrib.auth import login, logout, authenticate
+
+# don't use login name conventions over writing an import
+    def loginview(request):
+        if request.method == "POST"
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            user = authenticate(request, username=data['username'], password=data['password'])
+        is user:
+            login(request, user)
+            return HttpResponseRedirect(reverse('homepage'))
 
 
 # Create your views here.
