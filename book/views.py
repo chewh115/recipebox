@@ -67,8 +67,8 @@ def author_add(request):
         return HttpResponseRedirect(reverse('homepage'))
 
     return render(request, html, {"form": form})
-else:
-    return HttpResponse(status=201)
+# else:
+#     return HttpResponse(status=201)
 
 
 def author(request, id):
