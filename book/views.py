@@ -4,6 +4,7 @@ from book.forms import RecipeAddForm, AuthorAddForm, LoginForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 # don't use login name conventions over writing an import
 
 
@@ -57,23 +58,28 @@ def recipe_add(request):
     return render(request, html, {"form": form})
 
 
-@login_required
 def author_add(request):
     html = "author_add.html"
     form = AuthorAddForm()
     if request.method == "POST":
         form = AuthorAddForm(request.POST)
-        form.save()
-        return HttpResponseRedirect(reverse('homepage'))
-
+        # form.save()
+        if form.is_valid():
+            data = form.cleaned_data
+            author = User.objects.create_user(
+                username =data['name']
+            )
+            Author.objects.create(
+                user=author,
+                name=data['name'],
+                bio=data.get('bio')
+            )
+        return HttpResponseRedirect(reverse("homepage"))
+#works but if user already exist return to page. error showing
     return render(request, html, {"form": form})
-# else:
-#     return HttpResponse(status=201)
-
 
 def author(request, id):
     author_data = Author.objects.filter(id=id).first()
-    # recipe_data = RecipeItem.objects.filter(author=author_data)
     data = RecipeItem.objects.all()
     return render(request, 'author.html', {
         'author_data': author_data, 'data': data})
