@@ -24,11 +24,15 @@
     <h4>Instructions</h4>
     <p>{{ recipe.instructions }}</p>
 
+    {% if request.user.is_authenticated %} <br />
+    {% if recipe not in request.user.favorites.all %}
     <a href="/favorite_recipe/{{recipe.id}}"><button>Favorite</button></a>
-
+    {% elif recipe in request.user.favorites.all %}
     <a href="/unfavorite_recipe/{{recipe.id}}"><button>Unfavorite</button></a>
-
+    {% endif %} {% endif %}<br />
+    {% if request.user.is_staff or request.user == recipe.author%}
     <a href="/recipe_edit/{{recipe.id}}"><button>Edit</button></a>
+    {% endif %}
     <a href="/"><button>Back to Home</button></a>
   </body>
 </html>
