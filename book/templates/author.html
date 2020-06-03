@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Author</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h3>Author: // {{ author_data.name }} //</h3>
-    
+
     <h3>About:</h3>
     <p>{{author_data.bio}}</p>
-    
+
     <main>
-        <div class="container">
-    <h5>Recipes by the author, </h5>
-                {% for recipe in data %}
-                {% if recipe.author.id == author_data.id %}
+      <div class="container">
+        <h5>Recipes by the author,</h5>
+        {% for recipe in data %} {% if recipe.author.id == author_data.id %}
         <li><a href="/recipes/{{ recipe.id }}/">{{recipe.title}}</a></li>
-                {% endif %}
-                {% endfor %}
-        </div>
+        {% endif %} {% endfor %} {% if author_data.favorites.all %}
+        <h5>Recipes favorited by the author,</h5>
+        {% for favorite in author_data.favorites.all %}
+        <li><a href="/recipes/{{favorite.id}}">{{favorite.title}}</a></li>
+        {% endfor %} {% else %}
+        <h5>This author hasn't favorited any recipes yet!</h5>
+        {% endif %}
+      </div>
     </main>
-    <br>
-    <br>
+    <br />
+    <br />
     <ul>
-        <a href='/'><button>Back to Home</button></a>
+      <a href="/"><button>Back to Home</button></a>
     </ul>
-    
-</body>
-<footer>Copyright Sasha 2020 (c)</footer>
+  </body>
+  <footer>Copyright Sasha 2020 (c)</footer>
 </html>

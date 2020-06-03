@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
 
-<body>
-<h1>{{ recipe.title }}</h1>
-<h3>Posted on {{ recipe.date }}</h3>
-<h3>Author:</h3>
-<ul>    
-    <li>
-    <a href = '/author/{{recipe.author.id}}/'><h3>{{ recipe.author.name }}</h3>
+  <body>
+    <h1>{{ recipe.title }}</h1>
+    <h3>Posted on {{ recipe.date }}</h3>
+    <h3>Author:</h3>
+    <ul>
+      <li>
+        <a href="/author/{{recipe.author.id}}/"
+          ><h3>{{ recipe.author.name }}</h3>
         </a>
-    </li>
+      </li>
 
+      <h3>Description:</h3>
+      <p>{{ recipe.description }}</p>
+    </ul>
+    <h4>Time Required: {{ recipe.time_required }}</h4>
 
-
-    <h3>Description:</h3>
-    <p>{{ recipe.description }}</p>
-</ul>
-<h4>Time Required: {{ recipe.time_required }}</h4>
-
-<h4>Instructions</h4>
+    <h4>Instructions</h4>
     <p>{{ recipe.instructions }}</p>
 
+    <a href="/favorite_recipe/{{recipe.id}}"><button>Favorite</button></a>
 
-        <a href='/'><button>Back to Home</button></a>
+    <a href="/unfavorite_recipe/{{recipe.id}}"><button>Unfavorite</button></a>
 
-</body>
+    <a href="/recipe_edit/{{recipe.id}}"><button>Edit</button></a>
+    <a href="/"><button>Back to Home</button></a>
+  </body>
 </html>

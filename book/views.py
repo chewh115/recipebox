@@ -78,6 +78,7 @@ def author_add(request):
 #works but if user already exist return to page. error showing
     return render(request, html, {"form": form})
 
+
 def author(request, id):
     author_data = Author.objects.filter(id=id).first()
     data = RecipeItem.objects.all()
@@ -88,3 +89,45 @@ def author(request, id):
 def recipes(request, id):
     recipe = RecipeItem.objects.filter(id=id).first()
     return render(request, "recipes.html", {"recipe": recipe})
+
+
+def recipe_edit(request, id):
+    html = "recipe_edit.html"
+    recipe = RecipeItem.objects.get(id=id)
+    if request.method == "POST":
+        form = RecipeAddForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            recipe.title = data['title']
+            recipe.description = data['body']
+            recipe.author = data['author']
+            recipe.save()
+            return HttpResponseRedirect(reverse('homepage'))
+    form = RecipeAddForm(initial={
+        'title': recipe.title,
+        'body': recipe.description,
+        'author': recipe.author
+    })
+    return render(request, html, {'form': form, 'recipe': recipe})
+
+
+def favorite_recipe(request, id):
+    html = "recipes.html"
+    if request.user.is_authenticated:
+        user = Author.objects.get(name=request.user.username)
+        recipe = RecipeItem.objects.get(id=id)
+        user.favorites.add(recipe)
+        user.save()
+        return HttpResponseRedirect(reverse('homepage'))
+    return render(request, html)
+
+
+def unfavorite_recipe(request, id):
+    html = "recipes.html"
+    if request.user.is_authenticated:
+        user = Author.objects.get(name=request.user.username)
+        recipe = RecipeItem.objects.get(id=id)
+        user.favorites.remove(recipe)
+        user.save()
+        return HttpResponseRedirect(reverse('homepage'))
+    return render(request, html)
