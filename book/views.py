@@ -1,6 +1,6 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from book.models import RecipeItem, Author
-from book.forms import RecipeAddForm, AuthorAddForm, LoginForm
+from book.forms import RecipeAddForm, AuthorAddForm, LoginForm, RecipeEditForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -88,25 +88,24 @@ def author(request, id):
 
 def recipes(request, id):
     recipe = RecipeItem.objects.filter(id=id).first()
-    return render(request, "recipes.html", {"recipe": recipe})
+    user_data = Author.objects.get(name=request.user.username)
+    return render(request, "recipes.html", {"recipe": recipe, "user_data": user_data})
 
 
 def recipe_edit(request, id):
     html = "recipe_edit.html"
     recipe = RecipeItem.objects.get(id=id)
     if request.method == "POST":
-        form = RecipeAddForm(request.POST)
+        form = RecipeEditForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             recipe.title = data['title']
             recipe.description = data['body']
-            recipe.author = data['author']
             recipe.save()
-            return HttpResponseRedirect(reverse('homepage'))
-    form = RecipeAddForm(initial={
+            return HttpResponseRedirect(reverse('recipes', args=(id,)))
+    form = RecipeEditForm(initial={
         'title': recipe.title,
-        'body': recipe.description,
-        'author': recipe.author
+        'body': recipe.description
     })
     return render(request, html, {'form': form, 'recipe': recipe})
 
@@ -118,8 +117,8 @@ def favorite_recipe(request, id):
         recipe = RecipeItem.objects.get(id=id)
         user.favorites.add(recipe)
         user.save()
-        return HttpResponseRedirect(reverse('homepage'))
-    return render(request, html)
+        return HttpResponseRedirect(reverse('recipes', args=(id,)))
+    return render(request, html, {'user': user})
 
 
 def unfavorite_recipe(request, id):
@@ -129,5 +128,5 @@ def unfavorite_recipe(request, id):
         recipe = RecipeItem.objects.get(id=id)
         user.favorites.remove(recipe)
         user.save()
-        return HttpResponseRedirect(reverse('homepage'))
+        return HttpResponseRedirect(reverse('recipes', args=(id,)))
     return render(request, html)
