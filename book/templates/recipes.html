@@ -24,16 +24,15 @@
     <h4>Instructions</h4>
     <p>{{ recipe.instructions }}</p>
 
+    {% if request.user.is_authenticated %}
     {% if recipe in user_data.favorites.all %}
-
     <a href="/unfavorite_recipe/{{recipe.id}}"><button>Unfavorite</button></a>
     {% else %}
     <a href="/favorite_recipe/{{recipe.id}}"><button>Favorite</button></a>
-    {% endif %}
+    {% endif %} {% endif %}
     {% if user.is_staff or user == recipe.author.user%}
     <a href="/recipe_edit/{{recipe.id}}"><button>Edit</button></a>
     {% endif %}
     <a href="/"><button>Back to Home</button></a>
-    <p>{{favorite_recipe}}</p>
   </body>
 </html>
