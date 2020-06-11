@@ -1,4 +1,9 @@
+{% if not request.user.is_staff or not request.user == recipe.author%}
+<p>You do not have permission to edit this recipe</p>
+<a href="/"><button>Back to Home</button></a>
+{% else %}
 <form action="" method="post">
   {% csrf_token %} {{form.as_p}}
   <input type="submit" value="Submit!" />
 </form>
+{% endif %}

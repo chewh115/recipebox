@@ -87,29 +87,34 @@ def author(request, id):
 
 
 def recipes(request, id):
-    recipe = RecipeItem.objects.filter(id=id).first()
-    user_data = Author.objects.get(name=request.user.username)
-    return render(request, "recipes.html", {"recipe": recipe, "user_data": user_data})
+    context = {}
+    context['recipe'] = RecipeItem.objects.filter(id=id).first()
+    if request.user.is_authenticated:
+        context['user_data'] = Author.objects.get(name=request.user.username)
+    return render(request, "recipes.html", context)
 
 
 def recipe_edit(request, id):
-    html = "recipe_edit.html"
     recipe = RecipeItem.objects.get(id=id)
-    if request.method == "POST":
-        form = RecipeEditForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            recipe.title = data['title']
-            recipe.description = data['body']
-            recipe.save()
-            return HttpResponseRedirect(reverse('recipes', args=(id,)))
-    form = RecipeEditForm(initial={
-        'title': recipe.title,
-        'body': recipe.description
-    })
-    return render(request, html, {'form': form, 'recipe': recipe})
+    html = "recipe_edit.html"
+    if request.user == recipe.author or request.user.is_staff:
+        if request.method == "POST":
+            form = RecipeEditForm(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                recipe.title = data['title']
+                recipe.description = data['body']
+                recipe.save()
+                return HttpResponseRedirect(reverse('recipes', args=(id,)))
+        form = RecipeEditForm(initial={
+            'title': recipe.title,
+            'body': recipe.description
+        })
+        return render(request, html, {'form': form, 'recipe': recipe})
+    return render(request, html)
 
 
+@login_required
 def favorite_recipe(request, id):
     html = "recipes.html"
     if request.user.is_authenticated:
@@ -121,6 +126,7 @@ def favorite_recipe(request, id):
     return render(request, html, {'user': user})
 
 
+@login_required
 def unfavorite_recipe(request, id):
     html = "recipes.html"
     if request.user.is_authenticated:
